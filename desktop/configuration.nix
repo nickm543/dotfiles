@@ -19,6 +19,9 @@
   # Define on which hard drive you want to install Grub.
   boot.loader.grub.device = "/dev/nvme1n1"; # or "nodev" for efi only
 
+  # try to make tp-link t2u work
+  boot.extraModulePackages = [ config.boot.kernelPackages.rtl8821au ];
+
   networking.hostName = "stealthbomber"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
   networking.networkmanager.enable = true;
