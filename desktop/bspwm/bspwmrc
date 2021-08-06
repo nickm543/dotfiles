@@ -1,0 +1,27 @@
+#!/bin/sh
+
+pgrep -x sxhkd > /dev/null || sxhkd &
+
+bspc monitor DisplayPort-0 -d I
+bspc monitor DisplayPort-1 -d II
+
+bspc config border_width	2
+bspc config window_gap	        12
+
+bspc config split_ratio         0.52
+bspc config borderless_monocle  true
+bspc config gapless_monocle     true
+
+xsetroot -cursor_name left_ptr &
+
+# set wallpaper
+feh --bg-fill ~/.config/wallpaper/wall.jpg
+
+# set up monitors
+xrandr --output DisplayPort-1 --mode 3840x2160 --output DisplayPort-0 --primary --mode 3840x2160 --right-of DisplayPort-1
+
+# start conky
+pgrep -x conky > /dev/null || conky -b &
+
+# fix scroll speed
+xinput set-prop 8 'Evdev Scrolling Distance' 1 5 6
