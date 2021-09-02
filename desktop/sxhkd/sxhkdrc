@@ -8,7 +8,7 @@ super + Return
 
 # program launcher
 super + d
-	rofi -show run
+	~/.config/rofi/launchers/colorful/launcher.sh
 
 # browser
 super + c
@@ -21,6 +21,10 @@ super + shift + s
 # show power menu
 super + alt + x
 	~/.config/rofi/applets/menu/powermenu.sh
+
+# flameshot
+Print
+    flameshot gui
 
 # make sxhkd reload its configuration files:
 super + Escape
@@ -134,8 +138,10 @@ super + {Left,Down,Up,Right}
 
 # volume control
 XF86AudioRaiseVolume
-	pactl set-sink-volume 0 +5%
+	~/.config/scripts/vol_up.sh
+
 XF86AudioLowerVolume
-	pactl set-sink-volume 0 -5%
+	~/.config/scripts/vol_down.sh
+
 XF86AudioMute
-	pactl set-sink-volume 0 toggle
+	~/.config/scripts/vol_mute.sh
