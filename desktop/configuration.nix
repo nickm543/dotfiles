@@ -27,7 +27,7 @@
   networking.networkmanager.enable = true;
 
   # Set your time zone.
-  time.timeZone = "America/New_York";
+  time.timeZone = "America/Chicago";
 
   # The global useDHCP flag is deprecated, therefore explicitly set to false here.
   # Per-interface useDHCP will be mandatory in the future, so this generated config
@@ -50,24 +50,6 @@
   # Enable the X11 windowing system.
 
 
-  services.xserver = {
-    enable = true;
-
-    displayManager.lightdm.enable = true;
-
-    videoDrivers = [ "amdgpu" ];
-    useGlamor = true;
-
-    layout = "us";
-
-    windowManager = {
-      bspwm.enable = true;
-      default = "bspwm";
-    };
-  };
-
-  services.picom.enable = true;
-
   fonts = {
     enableDefaultFonts = true;
     fontDir.enable = true;
@@ -76,6 +58,7 @@
       dejavu_fonts
       noto-fonts
       iosevka
+      jetbrains-mono
     ];
     fontconfig = {
       defaultFonts = {
@@ -83,10 +66,10 @@
 	  "DejaVu Serif"
         ];
         sansSerif = [
-	  "DejaVu Sans"
+	  "SF Pro Display"
         ];
         monospace = [
- 	  "Iosevka"
+ 	  "JetBrains Mono"
         ];
         emoji = [
 	  "Noto Color Emoji"
@@ -109,16 +92,21 @@
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.nick = {
     isNormalUser = true;
-    extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
+    extraGroups = [ "wheel" "libvirtd" ]; # Enable ‘sudo’ for the user.
     shell = pkgs.zsh;
   };
+
+
+  # For GPU support in Blender
+  hardware.opengl.extraPackages = with pkgs; [
+    rocm-opencl-icd
+    rocm-opencl-runtime
+  ];
 
   # Allow unfree packages:
 
   nixpkgs.config.allowUnfree = true;
 
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
   environment.systemPackages = with pkgs; [
     # utilities
     vim
@@ -126,8 +114,19 @@
     git
     sxhkd
     killall
+    libnotify
     usbutils
+    unzip
     betterlockscreen
+    lxappearance
+    redshift
+    virt-manager
+    teams
+
+    # sec tools
+    nmap 
+    python39 
+    gdb
 
     # driver for usb wifi adapter (TP-Link Archer T2U)
     linuxPackages.rtl8821au
@@ -143,11 +142,59 @@
 
   # List services that you want to enable:
   
-
-
-  # Enable the OpenSSH daemon.
   services.openssh.enable = true;
 
+  # Fixes a weird dconf error:
+  services.dbus.packages = with pkgs; [ gnome3.dconf ];
+
+  services.cron = {
+    enable = true;
+    systemCronJobs = [
+
+    ];
+  };
+
+  virtualisation.libvirtd.enable = true;
+  programs.dconf.enable = true;
+
+  services.xserver = {
+    enable = true;
+
+    displayManager = {
+      sessionCommands = ''
+        ${pkgs.xlibs.xsetroot}/bin/xsetroot -cursor_name ${pkgs.paper-icon-theme}/share/icons/Paper/cursors/left_ptr 32 &disown
+        ${pkgs.xlibs.xset}/bin/xset r rate 200 40
+      '';
+
+      lightdm = {
+	enable = true;
+	greeters = {
+          gtk = {
+	    enable = true;
+	    # cursorTheme = {
+            #   package = pkgs.paper-icon-theme;
+	    #   name = "Paper";
+	    #   size = 32;
+	    # };
+	  };
+	};
+      };
+    };
+
+    windowManager = {
+      default = "bspwm";
+      bspwm.enable = true;
+    };
+
+    videoDrivers = [ "amdgpu" ];
+    useGlamor = true;
+
+    layout = "us";
+  };
+
+  services.mongodb.enable = true;
+
+  services.picom.enable = true;
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
   # networking.firewall.allowedUDPPorts = [ ... ];

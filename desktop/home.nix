@@ -9,9 +9,13 @@ let
     nativeBuildInputs = [ pkgs.makeWrapper ];
     postBuild = ''
       wrapProgram $out/bin/brave \
-        --add-flags "--force-device-scale-factor=1.25"
+        --add-flags "--force-device-scale-factor=1.50"
     '';
   };
+
+  xcursorTheme = "Paper";
+  xcursorPackage = pkgs.paper-icon-theme;
+  xcursorSize = 32;
 
 in
 {
@@ -35,15 +39,32 @@ in
 
   home.packages = with pkgs; [
     # utils
-    htop neofetch taskwarrior rofi feh conky
+    htop pfetch taskwarrior rofi feh conky fzf ripgrep dunst
 
     # applications
-    kitty brave-4k slack discord zsh
+    kitty brave-4k slack discord zsh vlc flameshot gimp wpsoffice blender ranger
+
+    # python pkgs
+    python39Packages.scapy
+    python39Packages.ics
+    # needed for gdb gef features
+    python38Packages.keystone-engine
+    python38Packages.unicorn
+    python38Packages.capstone
+    python38Packages.ropper
+
+
+    # sec tools
+    wireshark
+
+    # games
+    minecraft
   ];
 
-  xsession.pointerCursor = {
-    package = pkgs.paper-icon-theme;
-    name = "Paper";
+  # use xresources to set the cursor theme:
+  xresources.properties = {
+    "Xcursor.theme" = xcursorTheme;
+    "Xcursor.size" = xcursorSize;
   };
 
   gtk = {
@@ -57,7 +78,17 @@ in
       package = pkgs.paper-icon-theme;
       name = "Paper";
     };
+    gtk2.extraConfig = ''
+      gtk-cursor-theme-name="${xcursorTheme}"
+      gtk-cursor-theme-size="${toString xcursorSize}"
+    '';
+    gtk3.extraConfig = {
+      "gtk-cursor-theme-name" = xcursorTheme;
+      "gtk-cursor-theme-size" = xcursorSize;
+    };
   };
+
+  # Services:
 
   services.picom = {
     backend = "glx";
@@ -72,7 +103,80 @@ in
     fadeDelta = 2;
 
     vSync = true;
+
+    # extraOptions = ''
+    #   use-damage = false
+    # '';
   };
+
+  services.dunst = {
+    enable = true;
+    settings = {
+      global = {
+        font = "JetBrains Mono 12";
+        monitor = 0;
+        transparency = 0;
+        geometry = "300x5-30+20";
+        follow = "keyboard";
+        indicate_hidden = "yes";
+        shrink = "no";
+        notification_height = 0;
+        separator_height = 2;
+        padding = 8;
+        horizontal_padding = 8;
+        frame_width = 3;
+        separator_color = "frame";
+        sort = "yes";
+        idle_threshold = 120;
+        line_height = 0;
+        markup = "full";
+        format = "<b>%s</b>\\n%b";
+        alignment = "left";
+        show_age_threshold = 60;
+        word_wrap = "yes";
+        ellipsize = "middle";
+        ignore_newline = "no";
+        stack_duplicates = true;
+        hide_duplicate_count = false;
+        show_indicators = "yes";
+        icon_position = "left";
+        max_icon_size = 32;
+        sticky_history = "yes";
+        history_length = 20;
+        always_run_script = true;
+        title = "Dunst";
+        class = "Dunst";
+        startup_notification = false;
+        force_xinerama = false;
+      };
+      shortcuts = {
+        close = "ctrl+space";
+        close_all = "ctrl+shift+space";
+        history = "ctrl+grave";
+        context = "ctrl+shift+period";
+      };
+      urgency_low = {
+        background = "#002b36";
+        foreground = "#ffffff";
+        frame_color = "#2aa198";
+        timeout = 10;
+      };
+      urgency_normal = {
+        background = "#002b36";
+        foreground = "#ffffff";
+        frame_color = "#2aa198";
+        timeout = 10;
+      };
+      urgency_critical = {
+        background = "#002b36";
+        foreground = "#ffffff";
+        frame_color = "#ff0000";
+        timeout = 0;
+      };
+    };
+  };
+
+  # Programs:
 
   programs.kitty = {
     enable = true;
@@ -119,19 +223,40 @@ in
     localVariables = {
       EDITOR = "nvim";
       BROWSER = "brave";
+      XDG_CONFIG_HOME = "/home/nick/.config";
     };
 
     shellAliases = {
+      # vim aliases
       v = "nvim";
       vi = "nvim";
       vim = "nvim";
-      nixhome = "home-manager edit";
-      nixsys = "sudo nvim /etc/nixos/configuration.nix";
+
+      # git aliases 
+      gs = "git status";
+      ga = "git add";
+      gc = "git commit";
+      gC = "git checkout";
+      gp = "git push";
+      gP = "git pull";
+      gb = "git branch";
+      gm = "git merge";
+      gf = "git fetch";
+
+      # nixos aliases
+      nh = "home-manager edit";
+      ns = "sudoedit /etc/nixos/configuration.nix";
+
+      # misc aliases
+      sxhkd = "nvim ~/.config/sxhkd/sxhkdrc";
+      bspwm = "nvim ~/.config/bspwm/bspwmrc";
+
     };
   };
 
   programs.neovim = {
     enable = true;
+
     plugins = with pkgs.vimPlugins; [
       vim-nix
       vim-airline
@@ -139,15 +264,25 @@ in
       auto-pairs
       vim-surround 
       vim-colors-solarized 
+      fzf-vim
+      nerdtree
     ];
     viAlias = true;
     vimAlias = true;
 
     extraConfig = ''
+      let mapleader = " "
       let g:airline_theme = 'solarized'
       colorscheme solarized
       set shiftwidth=4
       set noshowmode
+      set number
+      set relativenumber
+
+      nnoremap <leader>n :NERDTreeFocus<CR>
+      nnoremap <C-n> :NERDTree<CR>
+      nnoremap <C-t> :NERDTreeToggle<CR>
+      nnoremap <C-f> :NERDTreeFind<CR>
     '';
   };
 
