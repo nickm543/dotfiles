@@ -1,1 +1,1 @@
-# A place for my Void Linux dotfiles
+# A place for my Linux dotfiles
