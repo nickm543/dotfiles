@@ -74,8 +74,11 @@ bindsym $mod+Mod1+c exec --no-startup-id brave --incognito
 # kill focused window
 bindsym $mod+Shift+q kill
 
-# start dmenu (a program launcher)
+# start rofi (a program launcher)
 bindsym $mod+d exec --no-startup-id rofi -show run
+
+# screenshot
+bindsym Print exec --no-startup-id flameshot gui
 
 # Lock the screen
 bindsym $mod+Shift+z exec --no-startup-id betterlockscreen -l
