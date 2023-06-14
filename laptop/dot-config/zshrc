@@ -1,0 +1,24 @@
+export ZSH="/home/nick/.oh-my-zsh"
+
+ZSH_THEME="juanghurtado"
+
+# Plugins
+plugins=(git zsh-syntax-highlighting)
+
+source $ZSH/oh-my-zsh.sh
+
+# Exports
+export EDITOR="nvim"
+export BROWSER="brave-browser-stable"
+
+# Aliases
+alias v='nvim'
+alias vi='nvim'
+alias vim='nvim'
+alias xi='sudo xbps-install'
+alias xq='xbps-query'
+alias xr='sudo xbps-remove'
+alias cfz='nvim ~/.zshrc'
+alias cfb='nvim ~/.config/bspwm/bspwmrc'
+alias cfs='nvim ~/.config/sxhkd/sxhkdrc'
+alias web='ssh nick@kcin.tech'
