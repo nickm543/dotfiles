@@ -8,7 +8,7 @@ if [ $# -eq 0 ]; then
 fi
 
 CONF=$HOME/.config
-if [ '$1' = 'desktop' ]; then
+if [ "$1" = "desktop" ]; then
 	DEST=./desktop/dot-config
 else
 	DEST=./laptop/dot-config
