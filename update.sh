@@ -15,8 +15,7 @@ else
 fi
 
 cp -rv $CONF/alacritty $DEST
-cp -rv $CONF/i3 $DEST
-cp -rv $CONF/polybar $DEST
+cp -rv $CONF/awesome $DEST
 cp -rv $CONF/picom $DEST
 cp -rv $CONF/rofi $DEST
 cp -rv $CONF/wallpaper $DEST
