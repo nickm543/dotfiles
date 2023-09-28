@@ -1,5 +1,5 @@
 #!/bin/sh
 
-killall wireplumber
-killall pipewire-pulse
-killall pipewire
+pkill wireplumber
+pkill pipewire-pulse
+pkill pipewire

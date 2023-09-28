@@ -58,6 +58,9 @@ launcher = "~/.config/polybar/hack/scripts/launcher.sh"
 editor = os.getenv("EDITOR") or "nano"
 editor_cmd = terminal .. " -e " .. editor
 
+-- Widgets
+local cpu_widget = require("awesome-wm-widgets.cpu-widget.cpu-widget")
+
 -- Default modkey.
 -- Usually, Mod4 is the key with a logo between Control and Alt.
 -- If you do not like this or do not have such a key,
@@ -96,8 +99,14 @@ myawesomemenu = {
    { "quit", function() awesome.quit() end },
 }
 
+powermenu = {
+    { "shutdown", function() os.execute("sudo shutdown -h now") end },
+    { "reboot", function() os.execute("sudo reboot") end }
+}
+
 mymainmenu = awful.menu({ items = { { "awesome", myawesomemenu, beautiful.awesome_icon },
-                                    { "open terminal", terminal }
+                                    { "open terminal", terminal },
+                                    { "power menu", powermenu }
                                   }
                         })
 
@@ -216,6 +225,7 @@ awful.screen.connect_for_each_screen(function(s)
         s.mytasklist, -- Middle widget
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
+            cpu_widget(),
             mykeyboardlayout,
             wibox.widget.systray(),
             mytextclock,
@@ -288,6 +298,10 @@ globalkeys = gears.table.join(
               {description = "open a private browser", group = "launcher"}),
     awful.key({ modkey,            }, "d", function () os.execute(launcher) end,
               {description = "open launcher", group = "launcher"}),
+    awful.key({ modkey, "Shift"    }, "z", function () awful.spawn.with_shell("~/.config/scripts/lock-screen.sh") end,
+              {description = "lock screen", group = "launcher"}),
+    awful.key({}, "Print", function () awful.spawn("flameshot gui") end,
+              {description = "Open flameshot", group = "launcher"}),
 
     awful.key(
         {},
@@ -516,8 +530,9 @@ awful.rules.rules = {
         },
         class = {
           "Arandr",
-          "Sxiv",
-	  "feh"},
+	  "Blender Preferences",
+	  "feh",
+          "Sxiv"},
 
         -- Note that the name property shown in xprop might be set slightly after creation of the client
         -- and the name shown there might not match defined rules here.
@@ -609,3 +624,5 @@ client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_n
 -- Startup programs
 os.execute("~/.config/scripts/fix_displays.sh")
 os.execute("picom &disown")
+awful.spawn("wireplumber &disown", false)
+awful.spawn.with_shell("~/.config/scripts/set-wallpaper.sh", false)

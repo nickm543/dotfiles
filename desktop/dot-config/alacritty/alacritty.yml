@@ -1,11 +1,15 @@
 font:
   normal:
-    family: Ubuntu Mono
-  size: 16.0
+    family: Roboto Mono for Powerline
+  size: 14.0
 
 window:
   opacity: 0.85
 
+cursor:
+  style:
+    shape: Underline
+
 import:
-  - ~/.config/alacritty/themes/dracula.yml
+  - ~/.config/alacritty/themes/gruvbox-dark.yml
 
