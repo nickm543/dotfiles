@@ -1,5 +1,7 @@
-#!/bin/sh
+#!/bin/bash
 
-killall wireplumber
-killall pipewire-pulse
-killall pipewire
+# Kill pipewire
+echo "Killing pipewire..."
+sudo pkill wireplumber
+sudo pkill pipewire-pulse
+sudo pkill pipewire

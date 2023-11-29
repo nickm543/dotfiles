@@ -15,11 +15,11 @@ else
 fi
 
 cp -rv $CONF/alacritty $DEST
-cp -rv $CONF/i3 $DEST
-cp -rv $CONF/polybar $DEST
+cp -rv $CONF/awesome $DEST
 cp -rv $CONF/picom $DEST
 cp -rv $CONF/rofi $DEST
 cp -rv $CONF/wallpaper $DEST
 cp -rv $CONF/scripts $DEST
+cp -rv $CONF/nvim $DEST
 
 echo "[*] Copied configs."
