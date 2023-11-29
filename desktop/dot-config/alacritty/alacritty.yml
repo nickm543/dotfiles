@@ -8,7 +8,7 @@ window:
 
 cursor:
   style:
-    shape: Underline
+    shape: Block
 
 import:
   - ~/.config/alacritty/themes/gruvbox-dark.yml

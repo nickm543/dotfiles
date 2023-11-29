@@ -60,6 +60,7 @@ editor_cmd = terminal .. " -e " .. editor
 
 -- Widgets
 local cpu_widget = require("awesome-wm-widgets.cpu-widget.cpu-widget")
+local pacman_widget = require("awesome-wm-widgets.pacman-widget.pacman")
 
 -- Default modkey.
 -- Usually, Mod4 is the key with a logo between Control and Alt.
@@ -225,6 +226,7 @@ awful.screen.connect_for_each_screen(function(s)
         s.mytasklist, -- Middle widget
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
+            pacman_widget(),
             cpu_widget(),
             mykeyboardlayout,
             wibox.widget.systray(),
