@@ -1,0 +1,27 @@
+# The definition of color schemes.
+schemes:
+  reddish: &reddish
+    primary:
+      background: '0x101010'
+      foreground: '0xea9a7d'
+    normal:
+      black:   '0xb1274e'
+      red:     '0xd22f32'
+      green:   '0xe16a5e'
+      yellow:  '0xe16a5e'
+      blue:    '0xe16a5e'
+      magenta: '0xe16a5e'
+      cyan:    '0xe16a5e'
+      white:   '0xf6c2a5'
+    bright:
+      black:   '0x3c3836'
+      red:     '0xea6962'
+      green:   '0xa9b665'
+      yellow:  '0xd8a657'
+      blue:    '0x7daea3'
+      magenta: '0xd3869b'
+      cyan:    '0x89b482'
+      white:   '0xd4be98'
+
+# Apply the color scheme.
+colors: *reddish
