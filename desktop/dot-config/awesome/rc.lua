@@ -46,16 +46,16 @@ end
 -- {{{ Variable definitions
 -- Themes define colours, icons, font and wallpapers.
 -- beautiful.init(gears.filesystem.get_themes_dir() .. "default/theme.lua")
-theme_dir = "~/.config/awesome/themes/"
-beautiful.init(theme_dir .. "gtk/theme.lua")
-beautiful.font = "Ubuntu Mono 10"
+theme_dir = "/home/nick/.config/awesome/themes/"
+beautiful.init(theme_dir .. "catppuccin/theme.lua")
+beautiful.font = "Fira Code Nerd Font Mono 12"
 
 -- This is used later as the default terminal and editor to run.
 terminal = "alacritty"
 browser = "brave"
-private_browser = "brave --incognito"
+private_browser = browser .. " --incognito"
 launcher = "~/.config/polybar/hack/scripts/launcher.sh"
-editor = os.getenv("EDITOR") or "nano"
+editor = "nvim"
 editor_cmd = terminal .. " -e " .. editor
 
 -- Widgets
@@ -628,7 +628,8 @@ client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_n
 -- }}}
 
 -- Startup programs
-os.execute("~/.config/scripts/fix_displays.sh")
-os.execute("picom &disown")
-awful.spawn("wireplumber &disown", false)
+awful.spawn.with_shell("/home/nick/.config/scripts/fix-displays.sh")
+-- awful.spawn.with_shell("picom", false)
+awful.spawn.with_shell("~/.config/scripts/start-picom.sh", false)
+awful.spawn.with_shell("~/.config/scripts/fix-audio.sh", false)
 awful.spawn.with_shell("~/.config/scripts/set-wallpaper.sh", false)

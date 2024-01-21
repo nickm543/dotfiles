@@ -17,4 +17,4 @@ require("core.plugins")
 require("core.plugin_config")
 
 -- For some reason I had to put this in init.lua, won't work anywhere else
-vim.cmd("colorscheme gruvbox")
+vim.cmd("colorscheme catppuccin-mocha")

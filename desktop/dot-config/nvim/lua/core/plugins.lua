@@ -1,6 +1,7 @@
 require("lazy").setup({
     "williamboman/mason.nvim",
     { "morhetz/gruvbox", name = "gruvbox", priority = 1000 },
+    { "catppuccin/nvim", name = "catppuccin", priority = 1000 },
     "nvim-lualine/lualine.nvim",
     "nvim-tree/nvim-web-devicons",
     "tpope/vim-surround",
