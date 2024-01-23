@@ -102,8 +102,8 @@ myawesomemenu = {
 }
 
 powermenu = {
-    { "shutdown", function() os.execute("sudo shutdown -h now") end },
-    { "reboot", function() os.execute("sudo reboot") end }
+    { "shutdown", function() os.execute("shutdown -h now") end },
+    { "reboot", function() os.execute("reboot") end }
 }
 
 mymainmenu = awful.menu({ items = { { "awesome", myawesomemenu, beautiful.awesome_icon },

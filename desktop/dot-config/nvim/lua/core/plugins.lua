@@ -18,4 +18,7 @@ require("lazy").setup({
         dependencies = { "nvim-lua/plenary.nvim" },
     "nvim-treesitter/nvim-treesitter",
     "nvim-tree/nvim-tree.lua",
+    "neovim/nvim-lspconfig",
+    "hrsh7th/nvim-cmp",
+    "hrsh7th/cmp-nvim-lsp"
 })
