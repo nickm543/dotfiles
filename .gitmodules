@@ -1,6 +1,0 @@
-[submodule "desktop/dot-config/awesome/awesome-wm-widgets"]
-	path = desktop/dot-config/awesome/awesome-wm-widgets
-	url = https://github.com/streetturtle/awesome-wm-widgets
-[submodule "laptop/dot-config/awesome/awesome-pulseaudio_widget"]
-	path = laptop/dot-config/awesome/awesome-pulseaudio_widget
-	url = https://github.com/stefano-m/awesome-pulseaudio_widget
