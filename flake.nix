@@ -22,6 +22,12 @@
           ./hosts/stealthbomber/configuration.nix
         ];
       };
+      framework = nixpkgs.lib.nixosSystem {
+        specialArgs = {inherit inputs outputs;};
+        modules = [
+          ./hosts/framework/configuration.nix
+        ];
+      };
     };
 
     homeConfigurations = {
@@ -30,6 +36,13 @@
         extraSpecialArgs = {inherit inputs outputs;};
         modules = [
           ./hosts/stealthbomber/home.nix
+        ];
+      };
+      "nick@framework" = home-manager.lib.homeManagerConfiguration {
+        pkgs = nixpkgs.legacyPackages.x86_64-linux;
+        extraSpecialArgs = {inherit inputs outputs;};
+        modules = [
+          ./hosts/framework/home.nix
         ];
       };
     };
