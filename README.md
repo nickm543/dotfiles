@@ -1,5 +1,15 @@
-# A place for my Linux dotfiles
-## Updating from current dotfiles
-To update the repo based on the current config, run `update.sh`:
+# NixOS dotfiles
 
-`./update.sh <desktop|laptop>`
+## Usage
+Clone repo:
+```
+git clone git@github.com:nickm543/dotfiles.git
+```
+Build system configuration:
+```
+cd dotfiles && sudo nixos-rebuild switch --flake .
+```
+Build home-manager configuration:
+```
+home-manager switch --flake .
+```

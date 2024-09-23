@@ -1,6 +1,0 @@
-require("core.plugin_config.lualine")
-require("core.plugin_config.luasnip")
-require("core.plugin_config.mason")
-require("core.plugin_config.nvim-autopairs")
-require("core.plugin_config.nvim-tree")
-require("core.plugin_config.telescope")
