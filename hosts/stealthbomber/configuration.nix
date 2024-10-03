@@ -135,6 +135,8 @@
       flameshot
       inconsolata-nerdfont
       pfetch
+      audacity
+      vmware-horizon-client
     ];
     shell = pkgs.zsh;
   };
