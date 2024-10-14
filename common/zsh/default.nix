@@ -11,9 +11,9 @@
       ];
     };
     shellAliases = {
-      v = "nvim";
-      vi = "nvim";
-      vim = "nvim";
+      v = "lvim";
+      vi = "lvim";
+      vim = "lvim";
       ls = "eza -l";
       cat = "bat";
     };
