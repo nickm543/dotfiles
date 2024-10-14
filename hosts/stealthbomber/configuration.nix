@@ -137,6 +137,9 @@
       pfetch
       audacity
       vmware-horizon-client
+      vlc
+      lunarvim
+      prismlauncher
     ];
     shell = pkgs.zsh;
   };
