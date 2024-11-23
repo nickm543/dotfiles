@@ -16,21 +16,30 @@
 
   networking.hostName = "framework"; # Define your hostname.
 
-  networking.extraHosts = 
-    ''
-      192.168.1.1  udm.nick.lan
-      192.168.1.20 pve.nick.lan
-      192.168.1.60 ha.nick.lan
-    '';
+  # networking.extraHosts = 
+  #   ''
+  #     192.168.1.1  udm.nick.local
+  #     192.168.1.20 pve.nick.local
+  #     192.168.1.60 ha.nick.local
+  #     192.168.1.156 apps.nick.local
+  #   '';
 
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
+  services.resolved.enable = true;
+
   # Enable wifi
-  networking.networkmanager.enable = true;
+  networking.networkmanager = {
+    enable = true;
+    dns = "systemd-resolved";
+  };
   networking.wireless.iwd.enable = true;
   networking.networkmanager.wifi.backend = "iwd";
+
+  # Zerotier
+  services.zerotierone.enable = true;
 
   # Set your time zone.
   time.timeZone = "America/Chicago";
@@ -112,16 +121,18 @@
       alacritty
       bat
       brave
+      firefox
       eza
       gimp
       kdePackages.kate
       kdePackages.krunner
-      neovim
+      lunarvim
       slack
       vscode
       flameshot
       inconsolata-nerdfont
       pfetch
+      grandorgue
     ];
     shell = pkgs.zsh;
   };
@@ -144,6 +155,9 @@
      python3
      p7zip
      virt-manager
+     dnsutils
+     zip
+     unzip
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
