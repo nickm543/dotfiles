@@ -158,6 +158,7 @@
      curl
      git
      gcc
+     file
      (blender.override {cudaSupport = true;})
      cudatoolkit
      pciutils

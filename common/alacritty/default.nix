@@ -1,11 +1,15 @@
 { config, pkgs, ... }:
 
 {
+  imports = [
+    ./nord.nix
+  ];
+
   programs.alacritty = {
     enable = true;
     settings = {
       font = {
-        size = 20;
+        size = 16;
         normal = {
           family = "Inconsolata Nerd Font Mono";
           style = "regular";

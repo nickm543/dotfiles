@@ -13,15 +13,18 @@
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+  
+  # Enable mounting NTFS filesystems
+  boot.supportedFilesystems = [ "ntfs" ];
 
   networking.hostName = "framework"; # Define your hostname.
 
-  networking.extraHosts = 
-    ''
-      192.168.1.1  udm.nick.lan
-      192.168.1.20 pve.nick.lan
-      192.168.1.60 ha.nick.lan
-    '';
+  # networking.extraHosts = 
+  #   ''
+  #     192.168.1.1  udm.nick.lan
+  #     192.168.1.20 pve.nick.lan
+  #     192.168.1.60 ha.nick.lan
+  #   '';
 
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
@@ -31,6 +34,9 @@
   networking.networkmanager.enable = true;
   networking.wireless.iwd.enable = true;
   networking.networkmanager.wifi.backend = "iwd";
+
+  # Enable zerotier
+  services.zerotierone.enable = true;
 
   # Set your time zone.
   time.timeZone = "America/Chicago";
@@ -57,7 +63,9 @@
 
   # Enable the X11 windowing system.
   # You can disable this if you're only using the Wayland session.
-  services.xserver.enable = true;
+  services.xserver = {
+    enable = true;
+  };
 
   # NVIDIA stuff
   # hardware.opengl = {
@@ -70,8 +78,23 @@
   # services.xserver.windowManager.i3.enable = true;
 
   # Enable the KDE Plasma Desktop Environment.
-  services.displayManager.sddm.enable = true;
+  services.displayManager = {
+    sddm.enable = true;
+  };
   services.desktopManager.plasma6.enable = true;
+
+  # Configure PAM to unlock KWallet
+  security.pam.services.kwallet = {
+    name = "kwallet";
+    enableKwallet = true;
+  };
+
+  # Enable sway
+  programs.sway = {
+    enable = true;
+    package = pkgs.swayfx;
+    wrapperFeatures.gtk = true;
+  };
 
   # Configure keymap in X11
   services.xserver.xkb = {
@@ -111,17 +134,27 @@
     packages = with pkgs; [
       alacritty
       bat
+      firefox
       brave
       eza
       gimp
       kdePackages.kate
       kdePackages.krunner
       neovim
+      lunarvim
       slack
       vscode
       flameshot
       inconsolata-nerdfont
       pfetch
+      btop
+      audacity
+      grandorgue
+      mpv
+      rofi-wayland
+      go
+      prismlauncher
+      vmware-horizon-client
     ];
     shell = pkgs.zsh;
   };
@@ -140,10 +173,25 @@
      curl
      git
      gcc
+     file
      blender
      python3
      p7zip
      virt-manager
+     swayfx
+     waybar
+     grim
+     slurp
+     wl-clipboard
+     wlr-randr
+     libnotify
+     mako
+     pulsemixer
+     wev
+     phinger-cursors
+     nordic
+     brightnessctl
+     nwg-look
   ];
 
   # Some programs need SUID wrappers, can be configured further or are

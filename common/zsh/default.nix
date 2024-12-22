@@ -5,7 +5,7 @@
     enable = true;
     oh-my-zsh = {
       enable = true;
-      theme = "essembeh";
+      theme = "fishy";
       plugins = [
 	      "git"
       ];
@@ -16,6 +16,11 @@
       vim = "lvim";
       ls = "eza -l";
       cat = "bat";
+      gs = "git status";
+      ga = "git add";
+      gc = "git commit";
+      gp = "git push";
+      gb = "git branch";
     };
     autosuggestion.enable = true;
     syntaxHighlighting.enable = true;
