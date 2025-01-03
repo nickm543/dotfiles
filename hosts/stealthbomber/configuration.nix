@@ -23,6 +23,7 @@
       192.168.1.1  udm.nick.lan
       192.168.1.20 pve.nick.lan
       192.168.1.60 ha.nick.lan
+      192.168.1.158 syncthing.nick.lan
     '';
 
   # Configure network proxy if necessary
@@ -95,6 +96,9 @@
   # Enable CUPS to print documents.
   services.printing.enable = true;
 
+  # Enable netbird
+  services.netbird.enable = true;
+
   # Enable sound with pipewire.
   hardware.pulseaudio.enable = false;
   security.rtkit.enable = true;
@@ -164,6 +168,10 @@
      python3
      p7zip
      virt-manager
+     netbird
+     dig
+     remmina
+     feh
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -178,6 +186,12 @@
 
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
+
+  # Enable Syncthing
+  services.syncthing = {
+    enable = true;
+    openDefaultPorts = true;
+  };
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
