@@ -87,6 +87,12 @@
   services.displayManager.sddm.enable = true;
   services.desktopManager.plasma6.enable = true;
 
+  # Configure PAM to unlock KWallet
+  security.pam.services.kwallet = {
+    name = "kwallet";
+    enableKwallet = true;
+  };
+
   # Configure keymap in X11
   services.xserver.xkb = {
     layout = "us";
@@ -144,6 +150,14 @@
       vlc
       lunarvim
       prismlauncher
+      polybar
+      feh
+      pywal
+      betterlockscreen
+      rofi
+      lxappearance
+      mpv
+      fspy
     ];
     shell = pkgs.zsh;
   };
@@ -152,6 +166,10 @@
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
+
+  nixpkgs.config.permittedInsecurePackages = [
+    "fspy-1.0.3"
+  ];
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
@@ -171,7 +189,9 @@
      netbird
      dig
      remmina
-     feh
+     killall
+     pulsemixer
+     ntfs3g
   ];
 
   # Some programs need SUID wrappers, can be configured further or are

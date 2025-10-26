@@ -1,6 +1,10 @@
 { config, pkgs, ... }:
 
 {
+  imports = [
+    ./nord.nix
+  ];
+
   programs.alacritty = {
     enable = true;
     settings = {
