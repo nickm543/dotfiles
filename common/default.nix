@@ -6,7 +6,7 @@
   imports = [
     ./zsh
     ./zellij
-    ./alacritty
+    # ./alacritty
   ];
 
   home.packages = [
