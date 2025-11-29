@@ -6,12 +6,12 @@
   ];
 
   programs.alacritty = {
-    enable = true;
+    enable = false;
     settings = {
       font = {
-        size = 14;
+        size = 16;
         normal = {
-          family = "Inconsolata Nerd Font Mono";
+          family = "Iosevka NF";
           style = "regular";
         };
       };

@@ -39,6 +39,7 @@
         extraSpecialArgs = {inherit inputs outputs;};
         modules = [
           ./hosts/stealthbomber/home.nix
+          vicinae.homeManagerModules.default
         ];
       };
       "nick@framework" = home-manager.lib.homeManagerConfiguration {

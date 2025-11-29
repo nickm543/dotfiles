@@ -4,7 +4,6 @@
   home.stateVersion = "24.05";
 
   imports = [
-    ./i3
     ./zsh
     ./zellij
     # ./alacritty
