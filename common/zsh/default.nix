@@ -21,6 +21,8 @@
       gc = "git commit";
       gp = "git push";
       gb = "git branch";
+      nrs = "sudo nixos-rebuild switch --flake .";
+      dots = "cd ~/.dotfiles";
     };
     autosuggestion.enable = true;
     syntaxHighlighting.enable = true;

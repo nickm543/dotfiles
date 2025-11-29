@@ -17,14 +17,18 @@
   # Enable mounting NTFS filesystems
   boot.supportedFilesystems = [ "ntfs" ];
 
+  # Swap partition (for GrandOrgue)
+  swapDevices = [{
+    device = "/swapfile";
+    size = 16 * 1024; # 16GB
+  }];
+
   networking.hostName = "framework"; # Define your hostname.
 
-  # networking.extraHosts = 
-  #   ''
-  #     192.168.1.1  udm.nick.lan
-  #     192.168.1.20 pve.nick.lan
-  #     192.168.1.60 ha.nick.lan
-  #   '';
+  networking.extraHosts = 
+    ''
+      10.147.20.20 pve.nick.lan
+    '';
 
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
@@ -37,6 +41,14 @@
 
   # Enable zerotier
   services.zerotierone.enable = true;
+
+  # Enable netbird
+  # services.netbird.enable = true;
+  
+  # Enable tailscale
+  services.tailscale = {
+    enable = true;
+  };
 
   # Set your time zone.
   time.timeZone = "America/Chicago";
@@ -67,21 +79,19 @@
     enable = true;
   };
 
-  # NVIDIA stuff
-  # hardware.opengl = {
-  #   enable = true;
-  # };
-
-  # services.xserver.videoDrivers = [ "nvidia" ];
-
   # Enable i3
   # services.xserver.windowManager.i3.enable = true;
 
   # Enable the KDE Plasma Desktop Environment.
   services.displayManager = {
     sddm.enable = true;
+    sddm.settings = {
+      Theme = {
+        CursorTheme = "Nordic-cursors";
+      };
+    };
   };
-  services.desktopManager.plasma6.enable = true;
+  # services.desktopManager.plasma6.enable = true;
 
   # Configure PAM to unlock KWallet
   security.pam.services.kwallet = {
@@ -90,11 +100,14 @@
   };
 
   # Enable sway
-  programs.sway = {
-    enable = true;
-    package = pkgs.swayfx;
-    wrapperFeatures.gtk = true;
-  };
+  # programs.sway = {
+  #   enable = true;
+  #   package = pkgs.swayfx;
+  #   wrapperFeatures.gtk = true;
+  # };
+
+  # Enable Hyprland
+  programs.hyprland.enable = true;
 
   # Configure keymap in X11
   services.xserver.xkb = {
@@ -133,11 +146,13 @@
     extraGroups = [ "networkmanager" "wheel" "libvirtd" ];
     packages = with pkgs; [
       alacritty
+      warp-terminal
       bat
       firefox
       brave
       eza
       gimp
+      vlc
       kdePackages.kate
       kdePackages.krunner
       neovim
@@ -145,19 +160,33 @@
       slack
       vscode
       flameshot
-      inconsolata-nerdfont
       pfetch
       btop
       audacity
       grandorgue
       mpv
-      rofi-wayland
+      rofi
       go
       prismlauncher
-      vmware-horizon-client
+      omnissa-horizon-client
+      nwg-look
+      dunst
+      emacs-pgtk
     ];
     shell = pkgs.zsh;
   };
+
+  # Steam
+  programs.steam.enable = true;
+
+  # fonts.packages = with pkgs; [
+  #   nerdfonts
+  # ];
+  # fonts.packages = [ ... ] ++ builtins.filter lib.attrsets.isDerivation (builtins.attrValues pkgs.nerd-fonts);
+  fonts.packages = with pkgs; [
+    nerd-fonts.inconsolata
+    nerd-fonts.iosevka
+  ];
 
   users.defaultUserShell = pkgs.zsh;
 
@@ -180,6 +209,10 @@
      virt-manager
      swayfx
      waybar
+     hyprlock
+     hypridle
+     hyprpaper
+     wofi
      grim
      slurp
      wl-clipboard
@@ -192,6 +225,10 @@
      nordic
      brightnessctl
      nwg-look
+     unzip
+     jdk8
+     usbutils
+     unrar
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -205,13 +242,22 @@
   # List services that you want to enable:
 
   # Enable the OpenSSH daemon.
-  services.openssh.enable = true;
+  services.openssh = {
+    enable = true;
+    settings.PasswordAuthentication = false;
+    settings.PermitRootLogin = "no";
+  };
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
+
+  networking.firewall = {
+    enable = true;
+    allowedTCPPorts = [ 34099 ];
+  };
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

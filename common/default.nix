@@ -7,7 +7,7 @@
     ./i3
     ./zsh
     ./zellij
-    ./alacritty
+    # ./alacritty
   ];
 
   home.packages = [
@@ -20,11 +20,12 @@
 
   home.sessionVariables = {
     EDITOR = "lvim";
+    SWAY_CURSOR_THEME = "Nordic-cursors";
   };
 
   home.pointerCursor = {
-    package = pkgs.libsForQt5.breeze-qt5;
-    name = "Breeze";
+    package = pkgs.nordic;
+    name = "Nordic-cursors";
     size = 48;
     gtk.enable = true;
     x11.enable = true;

@@ -4,8 +4,12 @@
   home.username = "nick";
   home.homeDirectory = "/home/nick";
 
-  imports =
-    [
-      ../../common
-    ];
+  imports = [
+    ../../common
+  ];
+
+  services.vicinae = {
+    enable = true;
+    autoStart = true;
+  };
 }

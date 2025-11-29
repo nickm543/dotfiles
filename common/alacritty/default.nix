@@ -9,7 +9,7 @@
     enable = true;
     settings = {
       font = {
-        size = 16;
+        size = 14;
         normal = {
           family = "Inconsolata Nerd Font Mono";
           style = "regular";
