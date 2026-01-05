@@ -22,7 +22,7 @@ in
       v = "nvim";
       vi = "nvim";
       vim = "nvim";
-      ls = "eza -l";
+      ls = "eza --icons -l";
       cat = "bat";
       dots = "cd ~/.dotfiles/hosts/stealthbomber";
       wofi = "wofi --conf ~/.config/wofi/config/config --style ~/.config/wofi/src/macchiato/style.css";
@@ -36,6 +36,7 @@ in
       gp = "git push";
       gP = "git pull";
       gb = "git branch";
+      serm = "cd ~/Documents/prog/wcb-sermon";
     };
     autosuggestion.enable = true;
     syntaxHighlighting.enable = true;
@@ -45,6 +46,10 @@ in
       source ${zsh-fzf-history-search}/zsh-fzf-history-search.plugin.zsh
       export PATH=$PATH:/home/nick/.config/emacs/bin
       ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=5'
+    '';
+
+    initExtra = ''
+      bindkey -s "^F" "/home/nick/.config/scripts/tmux-sessionizer^M"
     '';
   };
 }

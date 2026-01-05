@@ -5,7 +5,7 @@
   home.homeDirectory = "/home/nick";
 
   home.sessionPath = [
-    "~/.config/scripts"
+    "/home/nick/.config/scripts"
   ];
   
   imports = [
@@ -17,7 +17,7 @@
     autoStart = true;
 
     settings = {
-      theme = { name = "solarized-dark"; };
+      theme = { name = "vicinae-dark"; };
     };
   };
 }

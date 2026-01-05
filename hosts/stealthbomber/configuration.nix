@@ -117,7 +117,7 @@
     extraGroups = [ "networkmanager" "wheel" "libvirtd" "docker" ];
     packages = with pkgs; [
       alacritty
-      kitty
+      ghostty
       bat
       brave
       librewolf
@@ -180,10 +180,22 @@
       ))
       fd
       ripgrep
+      tmux
+      yazi
       pyright
       libreoffice
       kubectl
       kubernetes-helm
+      go
+      pureref
+      hyprsunset
+      ccemux
+        
+      # LSP
+      lua-language-server
+      (python3.withPackages (ps: with ps; [
+        python-lsp-server
+      ]))
     ];
     shell = pkgs.zsh;
   };
@@ -279,5 +291,7 @@
   nix.settings = {
     experimental-features = [ "nix-command" "flakes" ];
   };
+
+  programs.nix-ld.enable = true;
 
 }
